@@ -8,5 +8,5 @@ setup(name='geoip_simple',
       author='Tomas Ebenlendr',
       author_email='ebik@ucw.cz',
       url='https://drak.ucw.cz/~ebik/', #FIXME
-      packages=['geoip_simple', 'geoip_simple.download'],
+      packages=['geoip_simple'],
      )
