@@ -7,6 +7,6 @@ setup(name='geoip_simple',
       description='Python GeoIP simple',
       author='Tomas Ebenlendr',
       author_email='ebik@ucw.cz',
-      url='https://drak.ucw.cz/~ebik/', #FIXME
+      url='https://github.com/ebikt/python-geoip-simple',
       packages=['geoip_simple'],
      )

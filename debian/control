@@ -5,6 +5,7 @@ Maintainer: Tomas Ebenlendr <ebik@ucw.cz>
 Build-Depends: debhelper (>= 8.0.0), python (>=2.7), python (<<3), python-setuptools
 Standards-Version: 3.9.3
 X-Python-Version: >= 2.7
+Homepage: https://github.com/ebikt/python-geoip-simple
 
 Package: python-geoip-simple
 Architecture: all
