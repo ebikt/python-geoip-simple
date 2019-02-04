@@ -354,6 +354,8 @@ if __name__ == '__main__':
     url         = 'https://geolite.maxmind.com/download/geoip/database/'
     if os.getuid() == 0:
         datadir = '/var/lib/python-geoip-simple/'
+        if not os.path.exists(datadir):
+            os.mkdir(datadir)
     else:
         datadir = os.path.join(os.path.dirname(__file__), '../data/')
 
