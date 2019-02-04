@@ -1,7 +1,7 @@
 import bisect, socket
 import os, sys, imp
 
-DEFAULT_PATH=os.path.join(os.path.dirname(__file__),'geoip_country_asn.pyc')
+DEFAULT_PATH='/var/lib/python-geoip-simple/geoip_country_asn.pyc'
 
 class Geo(object):
     _instances = dict()
@@ -52,14 +52,3 @@ class Geo(object):
 
     def get_headers(self):
         return self.data.value_names
-
-if __name__ == '__main__':
-    g = Geo()
-    print g.get_data(sys.argv[1])
-    import time
-    print "waiting for enter"
-    sys.stdin.readline()
-    print "attempting reload"
-    g.check_reload()
-    print g.get_data(sys.argv[1])
-    
