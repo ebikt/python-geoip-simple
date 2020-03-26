@@ -293,7 +293,7 @@ def download(url, path, name, proxy):
     assert '/' not in name
     output_name = os.path.join(path, name)
 
-    req = urllib2.Request(url.rstrip('/') + '/' + name)
+    req = urllib2.Request(url)
     try:
         last_modified = os.stat(output_name).st_mtime
     except Exception:
@@ -348,16 +348,20 @@ def download(url, path, name, proxy):
 
 
 if __name__ == '__main__':
-    output      = 'geoip_country_asn.pyc'
-    country_zip = 'GeoLite2-Country-CSV.zip'
-    asn_zip     = 'GeoLite2-ASN-CSV.zip'
-    url         = 'https://geolite.maxmind.com/download/geoip/database/'
+    output       = 'geoip_country_asn.pyc'
+    country_name = 'GeoLite2-Country-CSV'
+    asn_name     = 'GeoLite2-ASN-CSV'
+    url          = 'https://download.maxmind.com/app/geoip_download?edition_id=%(edition)s&license_key=%(license)s&suffix=zip'
+    license_file = 'maxmind.lic'
+
     if os.getuid() == 0:
         datadir = '/var/lib/python-geoip-simple/'
+        licdir  = '/etc/python-geoip-simple/'
         if not os.path.exists(datadir):
             os.mkdir(datadir)
     else:
         datadir = os.path.join(os.path.dirname(__file__), '../data/')
+        licdir = os.path.join(os.path.dirname(__file__), '../')
 
     if len(sys.argv) > 1:
         if sys.argv[1] == 'compile':
@@ -371,11 +375,22 @@ if __name__ == '__main__':
 
     if not compile_only:
         changed = not os.path.exists(os.path.join(datadir, output))
-        if download(url, datadir, country_zip, proxy): changed = True
-        if download(url, datadir, asn_zip, proxy): changed = True
+        license_file = os.getenv("LICENSE_FILE", license_file)
+        if not license_file.startswith('/'):
+            license_file = os.path.join(licdir, license_file)
+        license_fh = open(license_file, 'rb')
+        license = license_fh.read().decode('ascii').strip()
+        license_fh.close()
+        for name in (country_name, asn_name):
+            if download(url % {"edition": name, "license": license} , datadir, name + '.zip', proxy):
+                changed = True
     else:
         changed = True
 
     if changed:
         print "Compiling new version of %s" % (output,)
-        country_asn(os.path.join(datadir,country_zip), os.path.join(datadir, asn_zip), os.path.join(datadir, output))
+        country_asn(
+            os.path.join(datadir,country_name + '.zip'),
+            os.path.join(datadir, asn_name + '.zip'),
+            os.path.join(datadir, output)
+        )

@@ -15,6 +15,11 @@ SYNOPSIS
 `python -m geoip_simple.download <proxy>` downloads data from MaxMind and compiles them. `<proxy>` is optional
 address of http/https proxy.
 
+_New in version 0.2:_ your lincense key must be stored in `maxmind.lic` file.
+
+Correct location is /etc/python_geoip_simple/maxmind.loc when downloading as root.
+Or you can provide other file by specifying path in environment variable LICENSE_FILE.
+
 Usage:
 ```
 from geoip_simple import Geo

@@ -1,7 +1,7 @@
 import bisect, socket
 import os, sys, imp
 
-DEFAULT_PATH='/var/lib/python-geoip-simple/geoip_country_asn.pyc'
+DEFAULT_PATH=os.getenv('GEOIP_COUNTRY_ASN_PYC', '/var/lib/python-geoip-simple/geoip_country_asn.pyc')
 
 class Geo(object):
     _instances = dict()
