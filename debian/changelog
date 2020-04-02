@@ -1,3 +1,9 @@
+python-geoip-simple (0.3) unstable; urgency=medium
+
+  * Fix dirs.
+
+ -- Tomas Ebenlendr <tomas.ebenlendr@centrumholdings.com>  Thu, 02 Apr 2020 10:29:44 +0200
+
 python-geoip-simple (0.2) unstable; urgency=medium
 
   * Use license key for downloading CSV
